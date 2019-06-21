@@ -25,7 +25,7 @@ public class App {
 	public static void main(String[] args) {
 		Instant start = Instant.now();
 		launcher = new App();
-		String link = "C:\\Users\\Samsung\\Desktop\\tech-task\\tech-task-integrity-vision\\src\\main\\resources\\com\\berzenin\\analyzer\\words.txt";
+		String link = "..\\tech-task-integrity-vision\\src\\main\\resources\\com\\berzenin\\analyzer\\words.txt";
 		
 		Path testFilePath = Paths.get(link);
 		log.info("File with strings: " + testFilePath.getFileName().toString());
@@ -101,73 +101,4 @@ public class App {
 		}
 		return false;
 	}
-	
-//	public boolean analyzWorldForConcat (String wordForConcatAnalyz) {
-//		for (String shortWord : allStrings) {
-//			if (!wordForConcatAnalyz.equals(shortWord) && allConditionsForConcat(wordForConcatAnalyz, shortWord)) {
-//				return true;
-//			}
-//		}
-//		return false;
-//	}
-//	
-//	private boolean allConditionsForConcat (String wordForConcatAnalyz, String shortWord) {
-//		if (shortWord.length()==0) {
-//			return false;
-//		}
-//		if (wordForConcatAnalyz.length()<shortWord.length()) {
-//			return false;
-//		}
-//		if (wordForConcatAnalyz.contains(shortWord) && checkForConcatPertOfWord (wordForConcatAnalyz, shortWord)) {
-//			return true;
-//		}
-//		return false;
-//	}
-//	
-//	private boolean checkForConcatPertOfWord (String concatString, String shortString) {
-//		String part = splitSpring(concatString, shortString);
-//		if (part.length()==0) {
-//			return true;
-//		}
-//		else {
-//			for (String shortWord : allStrings) {
-//				if (allConditionsForConcat(part, shortWord)) {
-//					return true;
-//				}
-//			}
-//		}
-//		return false;		
-//	}
-//	
-//	public String splitSpring(String concatString, String shortString) {
-//	return concatString.replace(shortString, "");
-//}
-//
-////	private void workWithAllStringsList () {
-////		shortWords = new LinkedList<>();
-////		concatWords = new LinkedList<>();
-////		for (String st: allStrings) {
-////			if (checkListWithStringsForContainsAnotherString (allStrings, st)) {
-////				shortWords.add(st);
-////			} else {
-////				concatWords.add(st);
-////			}
-////		}
-////		
-//////		log.info("List of concat word: ");
-//////		System.out.println(concatWords.size());
-//////		concatWords.forEach(st -> System.out.println(st));
-////		log.info("List of short word: ");
-////		shortWords.forEach(st -> System.out.println(st));
-////		
-////	}
-//	
-//	private boolean checkListWithStringsForContainsAnotherString (List<String> words, String word) {
-//		for (String st : words) {
-//		if (st.length() > word.length() && st.contains(word)) {
-//			return true;
-//		}
-//	}
-//	return false;
-//	}
 }
