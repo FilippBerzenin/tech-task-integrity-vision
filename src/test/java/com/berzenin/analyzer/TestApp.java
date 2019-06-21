@@ -67,6 +67,10 @@ class TestApp {
 		assertEquals(false, launcher.analyzWorldForConcat("absorb"));
 		assertEquals(false, launcher.analyzWorldForConcat("ability"));
 		assertEquals(true, launcher.analyzWorldForConcat("absorbability"));
+		
+		assertEquals(true, launcher.analyzWorldForConcat("conditional"));
+		assertEquals(true, allStrings.contains("condition"));
+		assertEquals(true, allStrings.contains("al"));
 	}
 
 }

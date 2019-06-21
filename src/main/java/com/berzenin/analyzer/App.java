@@ -9,8 +9,11 @@ import java.nio.file.Paths;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import lombok.extern.java.Log;
 
@@ -19,12 +22,11 @@ public class App {
 	
 	private static App launcher;
 	private static List<String> allStrings;
-	private static List<String> shortWords;
+//	private static List<String> shortWords;
 	private static List<String> concatWords;
-	
-	private static int smallestWordSize;
 
 	public static void main(String[] args) {
+		Instant start = Instant.now();
 		launcher = new App();
 //		String link = "C:\\Users\\Fylyp\\Desktop\\tech_tasks\\src\\main\\resources\\com\\berzenin\\analyzer\\words.txt";
 		String link = "C:\\Users\\Fylyp\\Desktop\\words.txt";
@@ -34,15 +36,29 @@ public class App {
 		allStrings = launcher.setArrayListFoString(testFilePath);
 		launcher.setListFoConcatWords();
 		System.out.println(concatWords.size());
-		concatWords.forEach(s -> System.out.println(s));
+		launcher.printResult();
+		
 //		launcher.workWithAllStringsList ();
+		Instant finish = Instant.now();
+		double timeElapsed = Duration.between(start, finish).toMillis();
+		System.out.println("App " + "execution time: " + timeElapsed / 1000);
+	}
+	
+	public void printResult () {
+		log.info("All concatenate words: "+concatWords.size());
+		List<String> sortedList = concatWords.stream()
+			.sorted(Comparator.comparing(String::length))
+			.collect(Collectors.toList());
+		sortedList.forEach((s -> System.out.println(s)));
+		log.info("last concatenate word: "+sortedList.get(concatWords.size()-1));
+		log.info("last but one concatenate word: "+sortedList.get(concatWords.size()-2));
 	}
 	
 	public List<String> setArrayListFoString(Path testFilePath) {
 		Instant start = Instant.now();
 		try {
 			allStrings = Files.readAllLines(testFilePath, UTF_8);
-			allStrings = allStrings.subList(0, 100000);
+			allStrings = allStrings.subList(0, 10000);
 			log.info("Strings, total count: " + Integer.toString(allStrings.size()));
 			return  allStrings;
 		} catch (IOException e) {
@@ -56,30 +72,30 @@ public class App {
 	}
 
 	private void setListFoConcatWords() {
-		Instant start = Instant.now();
+//		Instant start = Instant.now();
 		concatWords = new ArrayList<>();
 		for (String wordForConcatAnalyz : allStrings) {
 			if (analyzWorldForConcat (wordForConcatAnalyz)) {
 				concatWords.add(wordForConcatAnalyz);
 			}
 		}
-		Instant finish = Instant.now();
-		double timeElapsed = Duration.between(start, finish).toMillis();
+//		Instant finish = Instant.now();
+//		double timeElapsed = Duration.between(start, finish).toMillis();
 //		System.out.println("setListFoConcatWords " + "execution time: " + timeElapsed / 1000);
 	}
 	
 	public boolean analyzWorldForConcat (String wordForConcatAnalyz) {
-		Instant start = Instant.now();
+//		Instant start = Instant.now();
 		for (String shortWord : allStrings) {
 			if (!wordForConcatAnalyz.equals(shortWord) && allConditionsForConcat(wordForConcatAnalyz, shortWord)) {
-				Instant finish = Instant.now();
-				double timeElapsed = Duration.between(start, finish).toMillis();
+//				Instant finish = Instant.now();
+//				double timeElapsed = Duration.between(start, finish).toMillis();
 //				System.out.println("setListFoConcatWords " + "execution time: " + timeElapsed / 1000);
 				return true;
 			}
 		}
-		Instant finish = Instant.now();
-		double timeElapsed = Duration.between(start, finish).toMillis();
+//		Instant finish = Instant.now();
+//		double timeElapsed = Duration.between(start, finish).toMillis();
 //		System.out.println("setListFoConcatWords " + "execution time: " + timeElapsed / 1000);
 		return false;
 	}
@@ -116,24 +132,24 @@ public class App {
 	return concatString.replace(shortString, "");
 }
 
-	private void workWithAllStringsList () {
-		shortWords = new LinkedList<>();
-		concatWords = new LinkedList<>();
-		for (String st: allStrings) {
-			if (checkListWithStringsForContainsAnotherString (allStrings, st)) {
-				shortWords.add(st);
-			} else {
-				concatWords.add(st);
-			}
-		}
-		
-//		log.info("List of concat word: ");
-//		System.out.println(concatWords.size());
-//		concatWords.forEach(st -> System.out.println(st));
-		log.info("List of short word: ");
-		shortWords.forEach(st -> System.out.println(st));
-		
-	}
+//	private void workWithAllStringsList () {
+//		shortWords = new LinkedList<>();
+//		concatWords = new LinkedList<>();
+//		for (String st: allStrings) {
+//			if (checkListWithStringsForContainsAnotherString (allStrings, st)) {
+//				shortWords.add(st);
+//			} else {
+//				concatWords.add(st);
+//			}
+//		}
+//		
+////		log.info("List of concat word: ");
+////		System.out.println(concatWords.size());
+////		concatWords.forEach(st -> System.out.println(st));
+//		log.info("List of short word: ");
+//		shortWords.forEach(st -> System.out.println(st));
+//		
+//	}
 	
 	private boolean checkListWithStringsForContainsAnotherString (List<String> words, String word) {
 		for (String st : words) {
